@@ -5,7 +5,7 @@
         <li class="nav-item"><a class="nav-link" href="{{ route('help') }}">帮助</a></li>
         {{-- 两者写法效果一样 , 但是上面的写法容错性高--}}
         {{-- <li class="nav-item"><a class="nav-link" href="/help">帮助</a></li> --}}
-        <li class="nav-item" ><a class="nav-link" href="#">登录</a></li>
+        <li class="nav-item" ><a class="nav-link" href="{{route('login')}}">登录</a></li>
       </ul>
     </div>
   </nav>

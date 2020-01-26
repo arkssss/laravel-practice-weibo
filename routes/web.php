@@ -25,3 +25,12 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 // 用户注册
 Route::get('/signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
+
+// 用户登陆
+
+// get登陆页面
+Route::get('/login', 'SessionsController@create')->name('login');
+// post登陆信息
+Route::post('/login', 'SessionsController@store')->name('login');
+// 登出
+
