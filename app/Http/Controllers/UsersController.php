@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 // 控制用户 CRUD 操作
 class UsersController extends Controller
@@ -12,5 +13,9 @@ class UsersController extends Controller
 
         return view('users.create');
 
+    }
+
+    public function show(User $user){
+        return view('users.show', compact('user'));
     }
 }
