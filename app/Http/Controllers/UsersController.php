@@ -22,13 +22,29 @@ class UsersController extends Controller
     // save user
     public function store(Request $request){
 
-        // 验证
+        // 后台表单验证
+
+
+        // 如果验证出错, 则直接重定向
         $this->validate($request, [
             'name' => 'required|max:50',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|confirmed|min:6'
         ]);
-        return;
+        
+        
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+
+        // 重定向到个人信息页
+        // 注意这是以 GET 方法重定向
+        redirect()->route('users.show', [$user->id]);
+        
+        return ;
 
     }
 }
