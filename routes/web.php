@@ -32,5 +32,7 @@ Route::resource('users', 'UsersController');
 Route::get('/login', 'SessionsController@create')->name('login');
 // post登陆信息
 Route::post('/login', 'SessionsController@store')->name('login');
-// 登出
+// 登出 , 相当于删除此次 Session资源
+Route::delete('/logout','SessionsController@delete')->name('logout');
+
 
