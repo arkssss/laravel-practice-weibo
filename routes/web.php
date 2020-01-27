@@ -14,6 +14,9 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+Route::get('/empty', function (){
+    return view('shared._empty');
+})->name('empty');
 
 // 接受 浏览器端发来的 get 请求, 路由为 '/' 映射到  StaticPagesController 控制器下的 home 方法
 Route::get('/', 'StaticPagesController@home')->name('home');
@@ -26,8 +29,19 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 Route::get('/signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
 
-// 用户登陆
+// Route::resource('users', 'UsersController'); 等于下面 ：
+//Route::get('/users', 'UsersController@index')->name('users.index');
+//Route::get('/users/create', 'UsersController@create')->name('users.create');
+//Route::get('/users/{user}', 'UsersController@show')->name('users.show');
+//Route::post('/users', 'UsersController@store')->name('users.store');
+//Route::get('/users/{user}/edit', 'UsersController@edit')->name('users.edit');
+//Route::patch('/users/{user}', 'UsersController@update')->name('users.update');
+//Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
 
+
+
+
+// 用户登陆
 // get登陆页面
 Route::get('/login', 'SessionsController@create')->name('login');
 // post登陆信息

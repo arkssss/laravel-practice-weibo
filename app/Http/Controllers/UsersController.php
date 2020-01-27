@@ -31,8 +31,8 @@ class UsersController extends Controller
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|confirmed|min:6'
         ]);
-        
-        
+
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -48,4 +48,31 @@ class UsersController extends Controller
         return redirect()->route('users.show', [$user->id]);
 
     }
+
+    // 获得编辑页面
+    public function edit(User $user){
+
+        return view('users.edit', compact('user'));
+
+    }
+
+
+    // 更新用户
+    public function update(User $user, Request $request){
+
+        $this->validate($request,
+            [
+                'name' => 'required|max:50',
+                'password' => 'required|confirmed|min:6'
+            ]
+        );
+
+        $user->update([
+            'name' => $request->name,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->route('users.show', $user->id);
+    }
+
 }
