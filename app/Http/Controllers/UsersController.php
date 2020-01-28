@@ -15,7 +15,7 @@ class UsersController extends Controller
     {
         // 表示除了这三个方法， 其他在执行前都需要调用中间件 auth
         $this->middleware('auth', [
-            'except' => ['create', 'store', 'show']
+            'except' => ['create', 'store', 'show', 'index']
         ]);
 
 
@@ -31,6 +31,15 @@ class UsersController extends Controller
     // 显示用户
     public function show(User $user){
         return view('users.show', compact('user'));
+    }
+
+    // 显示所有用户
+    public function index(){
+
+        $users = User::paginate(10);
+
+        return view('users.index', compact('users'));
+
     }
 
     // save user
