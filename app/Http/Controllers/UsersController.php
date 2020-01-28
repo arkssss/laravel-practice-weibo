@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Auth;
 // 控制用户 CRUD 操作
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        // 表示除了这三个方法， 其他在执行前都需要调用中间件 auth
+        $this->middleware('auth', [
+            'except' => ['create', 'store', 'show']
+        ]);
+
+
+    }
+
     // 创建用户
     public function create(){
 
@@ -17,6 +28,7 @@ class UsersController extends Controller
 
     }
 
+    // 显示用户
     public function show(User $user){
         return view('users.show', compact('user'));
     }
@@ -52,13 +64,17 @@ class UsersController extends Controller
     // 获得编辑页面
     public function edit(User $user){
 
+        $this->authorize('update', $user);
+
         return view('users.edit', compact('user'));
 
     }
 
-
     // 更新用户
     public function update(User $user, Request $request){
+
+        // 利用 UserPolicy 策略的 update 方法， 验证此时的user
+        $this->authorize('update', $user);
 
         $this->validate($request,
             [
@@ -72,6 +88,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        session()->flash('success', '个人资料更新成功！');
         return redirect()->route('users.show', $user->id);
     }
 

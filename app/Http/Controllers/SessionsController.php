@@ -3,18 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 
 class SessionsController extends Controller
 {
+
+    public function __construct()
+    {
+        // 表示 只有未登录的用户才能访问 login 页面
+        $this->middleware('guest',
+            ['only' => ['create']]
+        );
+
+    }
+
+
     // get 登陆
     public function create(){
 
         return view("sessions.login");
 
     }
-
 
     // 验证登陆
     public function store(Request $request){
@@ -32,7 +42,10 @@ class SessionsController extends Controller
         if(Auth::attempt($basicValidate, $request->has('remember'))){
             // 登陆成功
             session()->flash('success', '登陆成功');
-            return redirect()->route('users.show', [Auth::user()]);
+            $fallback = route('users.show', Auth::user());
+
+            // intended() 表示重定向到用户上一次浏览的页面， 如果没有上一次，那么浏览 fallback
+            return redirect()->intended($fallback);
 
         }else{
             // 登陆失败
