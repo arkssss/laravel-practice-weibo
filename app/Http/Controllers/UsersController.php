@@ -61,8 +61,7 @@ class UsersController extends Controller
         ]);
 
 
-        Auth::attempt();
-
+        Auth::login($user);
         // 重定向到个人信息页
         // 注意这是以 GET 方法重定向
         session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
@@ -101,4 +100,24 @@ class UsersController extends Controller
         return redirect()->route('users.show', $user->id);
     }
 
+    /**
+     * 删除用户
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(User $user){
+
+        $this->authorize('destroy', $user);
+
+        $user->delete();
+
+        session()->flash('success', '删除成功');
+
+//        $fallback = route('users.index');
+//        return redirect()->intended($fallback);
+
+        return back();
+
+    }
 }
