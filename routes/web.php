@@ -40,8 +40,6 @@ Route::get('/signup/confirm/{token}', 'UsersController@confirmEmail')->name('con
 //Route::delete('/users/{user}', 'UsersController@destroy')->name('users.destroy');
 
 
-
-
 // 用户登陆
 // get登陆页面
 Route::get('/login', 'SessionsController@create')->name('login');
@@ -51,3 +49,8 @@ Route::post('/login', 'SessionsController@store')->name('login');
 Route::delete('/logout','SessionsController@delete')->name('logout');
 
 
+// 修改密码
+Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
