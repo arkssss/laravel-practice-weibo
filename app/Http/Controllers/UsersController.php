@@ -30,9 +30,15 @@ class UsersController extends Controller
 
     }
 
-    // 显示单个用户
+    // 显示单个用户, 同时显示这个用户的微博
     public function show(User $user){
-        return view('users.show', compact('user'));
+
+        $blogs = $user->blogs()
+                ->orderBy('created_at','desc')
+                ->paginate(5);
+
+        return view('users.show', compact('user', 'blogs'));
+
     }
 
     // 显示所有用户
