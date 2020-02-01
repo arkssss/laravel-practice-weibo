@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,9 +11,9 @@ class BlogsController extends Controller
 
     public function __construct()
     {
-//        $this->middleware(
-//            ['auth', ['only' => 'store', 'destroy']]
-//        );
+        $this->middleware(
+            'auth', ['only' => 'store', 'destroy']
+        );
     }
 
 
@@ -38,12 +39,14 @@ class BlogsController extends Controller
     }
 
     // 删除 for DELETE
-    public function destroy(){
+    public function destroy(Blog $blog){
 
+        /* 只能删除自己的微博 */
+        $this->authorize('destroy', $blog);
 
-
-
-
+        $blog->delete();
+        session()->flash('success', '删除成功');
+        return redirect()->back();
     }
 
 
