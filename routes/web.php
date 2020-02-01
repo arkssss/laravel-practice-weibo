@@ -52,5 +52,9 @@ Route::delete('/logout','SessionsController@delete')->name('logout');
 // 修改密码
 Route::get('/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+
+// 微博 RESTful 接口, 仅支持新增和删除操作
+Route::resource('blogs', 'BlogsController', ['only'=>['store', 'destroy']]);
