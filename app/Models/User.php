@@ -52,4 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class);
 
     }
+
+    /* 返回该用户关注的人发的微博 */
+    public function feed(){
+
+        return $this->blogs()->orderBy('created_at', 'desc');
+
+    }
 }
