@@ -46,6 +46,17 @@ class User extends Authenticatable
         return "http://www.gravatar.com/avatar/$hash?s=$size";
     }
 
+    public function followers(){
+
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'user_id');
+
+    }
+
+    public function followings(){
+
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follower_id');
+
+    }
 
     public function blogs(){
 
