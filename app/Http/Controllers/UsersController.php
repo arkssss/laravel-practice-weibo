@@ -149,4 +149,31 @@ class UsersController extends Controller
         session()->flash('success', '账号激活成功！');
         return redirect()->route('users.show',$user);
     }
+
+    // 获得所有粉丝
+    public function followers(User $user){
+
+        /* 需要验证 (Middleware => auth) */
+
+        /* 验证身份一致性 */
+        $this->authorize('sameUser', $user);
+
+        $followers = $user->followers()->paginate(10);
+
+        return view('users.followers', compact('user', 'followers'));
+
+    }
+
+    // 获得所有关注者
+    public function followings(User $user){
+
+        /* 验证身份一致性 */
+        $this->authorize('sameUser', $user);
+
+        $followings = $user->followings()->paginate(10);
+
+        return view('users.followings', compact('user', 'followings'));
+
+    }
+
 }

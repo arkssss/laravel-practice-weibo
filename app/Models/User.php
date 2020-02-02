@@ -46,16 +46,40 @@ class User extends Authenticatable
         return "http://www.gravatar.com/avatar/$hash?s=$size";
     }
 
+    /* 返回粉丝 */
     public function followers(){
 
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'user_id');
 
     }
 
+    /* 返回关注的人 */
     public function followings(){
 
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'follower_id');
 
+    }
+
+    /* 关注 */
+    public function follow($user_ids){
+
+        if(!is_array($user_ids)){
+            $user_ids = compact('user_ids');
+        }
+
+        /* 关注 */
+        $this->followings()->sync($user_ids, false);
+
+    }
+
+    /* 取消关注 */
+    public function unfollow($user_ids){
+        if(!is_array($user_ids)){
+            $user_ids = compact('user_ids');
+        }
+
+        /* 取消关注 */
+        $this->followings()->detach($user_ids);
     }
 
     public function blogs(){

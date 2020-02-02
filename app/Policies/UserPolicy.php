@@ -32,6 +32,18 @@ class UserPolicy
     }
 
     /**
+     * 用户一致性检测
+     * @param User $currentUser
+     * @param User $passUser
+     * @return bool
+     */
+    public function sameUser(User $currentUser, User $passUser){
+
+        return $currentUser->id === $passUser->id;
+
+    }
+
+    /**
      * 用户删除策略
      * @param User $currentUser
      * @param User $passUser

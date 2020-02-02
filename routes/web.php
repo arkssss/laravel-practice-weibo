@@ -29,6 +29,9 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 Route::get('/signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
 Route::get('/signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
+Route::get('/users/{user}/followers', 'UsersController@followers')->name('users.followers');
+Route::get('/users/{user}/followings', 'UsersController@followings')->name('users.followings');
+
 
 // Route::resource('users', 'UsersController'); 等于下面 ：
 //Route::get('/users', 'UsersController@index')->name('users.index');
