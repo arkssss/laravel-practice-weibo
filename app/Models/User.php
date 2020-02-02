@@ -94,4 +94,11 @@ class User extends Authenticatable
         return $this->blogs()->orderBy('created_at', 'desc');
 
     }
+
+    /* 当前用户是否关注了 user_id */
+    public function isFollowing($user_id){
+
+        return $this->followings->contains($user_id);
+
+    }
 }

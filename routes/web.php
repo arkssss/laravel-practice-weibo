@@ -29,8 +29,16 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 Route::get('/signup', 'UsersController@create')->name('signup');
 Route::resource('users', 'UsersController');
 Route::get('/signup/confirm/{token}', 'UsersController@confirmEmail')->name('confirm_email');
+
+// 粉丝
 Route::get('/users/{user}/followers', 'UsersController@followers')->name('users.followers');
 Route::get('/users/{user}/followings', 'UsersController@followings')->name('users.followings');
+
+
+// 关注
+Route::post('/users/following/{user}', 'FollowersController@store')->name('followers.store');
+// 取关
+Route::delete('/users/following/{user}', 'FollowersController@destroy')->name('followers.destroy');
 
 
 // Route::resource('users', 'UsersController'); 等于下面 ：

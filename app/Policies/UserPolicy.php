@@ -52,4 +52,10 @@ class UserPolicy
     public function destroy(User $currentUser, User $passUser){
         return $currentUser->is_admin && $currentUser->id !== $passUser->id;
     }
+
+    public function notSameUser(User $currentUser, User $passUser){
+
+        return $currentUser->id != $passUser->id;
+
+    }
 }
