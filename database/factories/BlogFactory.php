@@ -20,7 +20,7 @@ use Illuminate\Support\Str;
 $factory->define(Blog::class, function (Faker $faker) {
     $date_time = $faker->date . ' ' . $faker->time;
     return [
-        'user_id' => 1,
+        'user_id' => 2,
         'content' => $faker->text(100),
         'created_at' => $date_time,
         'updated_at' => $date_time,

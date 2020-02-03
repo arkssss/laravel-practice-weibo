@@ -13,7 +13,7 @@ class BlogTableSeeder extends Seeder
     public function run()
     {
 
-        $blogs = factory(Blog::class)->times(50)->make();
+        $blogs = factory(Blog::class)->times(5)->make();
         Blog::insert($blogs->toArray());
     }
 }

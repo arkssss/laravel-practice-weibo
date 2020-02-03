@@ -91,7 +91,11 @@ class User extends Authenticatable
     /* 返回该用户关注的人发的微博 */
     public function feed(){
 
-        return $this->blogs()->orderBy('created_at', 'desc');
+        $user_ids = $this->followings->pluck('id')->toArray();
+        array_push($user_ids, $this->id);
+        return Blog::whereIn('user_id', $user_ids)
+            ->with('user')
+            ->orderBy('created_at', 'desc');
 
     }
 
